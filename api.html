@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
+    <title>Hi！</title>
+<style>
+  .loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.92);
+    z-index: 9999;
+  }
+  
+  .loading-text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+    padding-right: 15px;
+    background: linear-gradient(
+      90deg,
+      #FF3366 0%,
+      #FF9933 20%,
+      #FFCC33 40%,
+      #33CC33 60%,
+      #3399FF 80%,
+      #9966FF 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 300% 100%;
+    animation: rainbow 3s ease infinite;
+  }
+  
+  .loading-text::after {
+    content: "···";
+    position: absolute;
+    right: 0;
+    animation: ellipsis 1.5s infinite;
+    width: 15px;
+    text-align: left;
+    color: #999; /* 保持省略号为灰色，避免过于花哨 */
+  }
+  
+  @keyframes ellipsis {
+    0%   { content: "·  "; }
+    33%  { content: "·· "; }
+    66%  { content: "···"; }
+  }
+  
+  @keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+</style>
+
+<div class="loader-container">
+  <div class="loading-text">加载中</div>
+</div>
+
+    <script>
+        window.onload = function() {
+            // 获取当前URL的查询参数
+            const queryString = window.location.search;
+            
+            // 构建新的URL路径，保留原始参数
+            const newPath = '/404.html' + queryString;
+            
+            // 修改浏览器历史记录，显示新的URL（不刷新页面）
+            history.pushState({}, '', newPath);
+            
+            // 检测是否在微信内置浏览器中
+            function isWeixinBrowser() {
+                return /MicroMessenger/i.test(navigator.userAgent);
+            }
+            
+            if (isWeixinBrowser()) {
+                // 如果在微信中，设置3秒后刷新
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+            } else {
+                // 如果不在微信中，阻止任何刷新行为
+                window.onbeforeunload = function() {
+                    return "刷新功能已被禁用";
+                };
+                
+                // 阻止键盘F5刷新
+                document.onkeydown = function(e) {
+                    if (e.keyCode === 116) {
+                        e.preventDefault();
+                        return false;
+                    }
+                };
+                
+                // 阻止右键菜单刷新
+                document.oncontextmenu = function(e) {
+                    e.preventDefault();
+                    return false;
+                };
+            }
+        };
+    </script>
+</body>
+</html>
