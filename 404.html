@@ -1,1 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知乎</title>
+    <script>
+        window.onload = function() {
+            // 获取当前URL的参数部分
+            var params = new URLSearchParams(window.location.search).toString();
+            
+            // 构造跳转到域名B的URL，并带上参数
+            var redirectUrlB = 'http://you2.22kami.com/302.html?' + params;
+            
+            // 使用window.location.href进行跳转
+            window.location.href = redirectUrlB;
+        };
+    </script>
+</head>
+<body>
 
+</body>
+</html>
